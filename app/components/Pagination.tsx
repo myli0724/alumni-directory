@@ -57,47 +57,70 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
   };
 
   return (
-    <div className="flex justify-center items-center mt-8 mb-4">
-      <button
-        onClick={() => currentPage > 1 && onPageChange(currentPage - 1)}
-        disabled={currentPage === 1}
-        className={`px-3 py-1 mx-1 rounded-md ${
-          currentPage === 1
-            ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
-            : 'bg-white text-blue-600 hover:bg-blue-50 border border-gray-300'
-        }`}
-      >
-        上一页
-      </button>
-      
-      {getPageNumbers().map((page, index) => (
+    <nav className="flex justify-center items-center" aria-label="分页导航">
+      <div className="inline-flex items-center bg-white shadow-md rounded-lg overflow-hidden">
         <button
-          key={index}
-          onClick={() => typeof page === 'number' && onPageChange(page)}
-          disabled={page === '...'}
-          className={`px-3 py-1 mx-1 rounded-md ${
-            page === currentPage
-              ? 'bg-blue-600 text-white'
-              : page === '...'
-              ? 'bg-white text-gray-500 cursor-default'
-              : 'bg-white text-blue-600 hover:bg-blue-50 border border-gray-300'
+          onClick={() => currentPage > 1 && onPageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+          className={`flex items-center px-4 py-2 text-sm font-medium transition-colors duration-200 ${
+            currentPage === 1
+              ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+              : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600'
           }`}
+          aria-label="上一页"
         >
-          {page}
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+          上一页
         </button>
-      ))}
+        
+        <div className="hidden sm:flex border-l border-r border-gray-200">
+          {getPageNumbers().map((page, index) => (
+            <button
+              key={index}
+              onClick={() => typeof page === 'number' && onPageChange(page)}
+              disabled={page === '...'}
+              className={`relative inline-flex items-center justify-center min-w-[40px] h-10 px-3 text-sm font-medium transition-colors duration-200 ${
+                page === currentPage
+                  ? 'z-10 bg-blue-600 text-white'
+                  : page === '...'
+                  ? 'text-gray-500 cursor-default'
+                  : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600'
+              }`}
+              aria-current={page === currentPage ? 'page' : undefined}
+            >
+              {page}
+            </button>
+          ))}
+        </div>
+        
+        <div className="sm:hidden flex items-center px-4 border-l border-r border-gray-200">
+          <span className="text-sm text-gray-700">
+            {currentPage} / {totalPages}
+          </span>
+        </div>
+        
+        <button
+          onClick={() => currentPage < totalPages && onPageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+          className={`flex items-center px-4 py-2 text-sm font-medium transition-colors duration-200 ${
+            currentPage === totalPages
+              ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+              : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600'
+          }`}
+          aria-label="下一页"
+        >
+          下一页
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
       
-      <button
-        onClick={() => currentPage < totalPages && onPageChange(currentPage + 1)}
-        disabled={currentPage === totalPages}
-        className={`px-3 py-1 mx-1 rounded-md ${
-          currentPage === totalPages
-            ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
-            : 'bg-white text-blue-600 hover:bg-blue-50 border border-gray-300'
-        }`}
-      >
-        下一页
-      </button>
-    </div>
+      <div className="hidden sm:block ml-4 text-sm text-gray-500">
+        共 {totalPages} 页
+      </div>
+    </nav>
   );
 } 

@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
       'xweb_xhr': '1',
       'appId': 'wx280487b60390fd6e',
       'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36 MicroMessenger/7.0.20.1781(0x6700143B) NetType/WIFI MiniProgramEnv/Windows WindowsWechat/WMPF WindowsWechat(0x63090a13) UnifiedPCWindowsWechat(0xf2540216) XWEB/13341',
-      'token': '1b0a0033ccce4109aa095771e3a92d6f',
+      'token': '5f67138165444a0abadf953dc05fad00',
       'tenantId': '1105',
       'Accept': '*/*',
       'Sec-Fetch-Site': 'cross-site',
